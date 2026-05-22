@@ -67,28 +67,86 @@ const { transparentTop = false } = Astro.props;
 <div class="header-spacer" aria-hidden="true"></div>
 
 <!-- Mobile menu — fixed overlay below the header bar -->
-<nav
-  id="mobile-menu"
-  class="mobile-menu"
-  hidden
-  aria-label="Menú móvil"
->
+<nav id="mobile-menu" class="mobile-menu" hidden aria-label="Menú móvil">
   <div class="mobile-menu-scroll">
-    <div class="container mobile-menu-inner">
-      <a href="#servicios" class="mob-link">Servicios</a>
-      <a href="#resultados" class="mob-link">Resultados</a>
-      <a href="#equipo" class="mob-link">Equipo</a>
-      <a href="#ubicacion" class="mob-link">Ubicación</a>
-      <a href="#contacto" class="mob-link">Contacto</a>
-      <div class="mob-divider" aria-hidden="true"></div>
-      <a href="#reservar" class="mob-cta-accent">
-        <span aria-hidden="true">🦷</span> Chequeo y diagnóstico gratis
+
+    <!-- Nav links -->
+    <div class="mob-section">
+      <p class="mob-section-label">Navegar</p>
+      <a href="#servicios" class="mob-link">
+        <span class="mob-link-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </span>
+        <span class="mob-link-text">Servicios</span>
+        <svg class="mob-link-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
       </a>
-      <a href="#reservar" class="mob-cta-primary">Reservar cita</a>
-      <a href="tel:+51999999999" class="mob-cta-ghost">
-        <span aria-hidden="true">📞</span> Llamar ahora
+      <a href="#resultados" class="mob-link">
+        <span class="mob-link-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </span>
+        <span class="mob-link-text">Antes &amp; Después</span>
+        <svg class="mob-link-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="#equipo" class="mob-link">
+        <span class="mob-link-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </span>
+        <span class="mob-link-text">Equipo</span>
+        <svg class="mob-link-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="#ubicacion" class="mob-link">
+        <span class="mob-link-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </span>
+        <span class="mob-link-text">Ubicación</span>
+        <svg class="mob-link-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="#contacto" class="mob-link">
+        <span class="mob-link-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </span>
+        <span class="mob-link-text">Contacto</span>
+        <svg class="mob-link-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
       </a>
     </div>
+
+    <!-- CTAs -->
+    <div class="mob-section mob-section-ctas">
+      <p class="mob-section-label">Agenda tu cita</p>
+
+      <a href="#reservar" class="mob-cta mob-cta-diagnose">
+        <span class="mob-cta-icon" aria-hidden="true">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </span>
+        <span class="mob-cta-body">
+          <span class="mob-cta-title">Chequeo y diagnóstico</span>
+          <span class="mob-cta-sub">Gratuito · Sin compromiso</span>
+        </span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+
+      <a href="#reservar" class="mob-cta mob-cta-book">
+        <span class="mob-cta-icon" aria-hidden="true">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </span>
+        <span class="mob-cta-body">
+          <span class="mob-cta-title">Reservar cita</span>
+          <span class="mob-cta-sub">Espinar y Arequipa</span>
+        </span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+
+    <!-- Contact bottom -->
+    <div class="mob-contact">
+      <a href="tel:+51999999999" class="mob-phone-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        +51 999 999 999
+      </a>
+      <span class="mob-contact-sep" aria-hidden="true">·</span>
+      <span class="mob-contact-hours">Lun–Vie 9:00–19:00</span>
+    </div>
+
   </div>
 </nav>
 
@@ -266,61 +324,169 @@ const { transparentTop = false } = Astro.props;
   /* ── Mobile menu (fullscreen fixed overlay) ─────── */
   .mobile-menu {
     position: fixed;
-    top: 76px;   /* sits right below the header bar */
+    top: 76px;
     left: 0; right: 0; bottom: 0;
-    background: white;
-    z-index: 49; /* below header (z-index: 50) */
+    background: #f8fafc;
+    z-index: 57; /* above MobileBar(55), below WhatsApp(60) */
     overflow: hidden;
     border-top: 1px solid var(--color-border);
   }
   .mobile-menu[hidden] { display: none; }
 
+  .mobile-menu:not([hidden]) {
+    animation: menuSlideIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes menuSlideIn {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
   .mobile-menu-scroll {
     height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .mobile-menu-inner {
-    padding: 20px 0 40px;
+    padding: 16px 16px 32px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    min-height: 100%;
+    gap: 12px;
   }
 
+  /* ── Section wrapper ────────────────────────────── */
+  .mob-section {
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(11,29,51,.04);
+  }
+
+  .mob-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    padding: 12px 16px 6px;
+    margin: 0;
+  }
+
+  /* ── Nav links ──────────────────────────────────── */
   .mob-link {
-    display: block;
-    padding: 14px 0;
-    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--color-navy);
     text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
-    transition: color .15s, padding-left .15s;
-  }
-  .mob-link:hover { color: var(--color-primary); padding-left: 6px; }
-
-  .mob-divider {
-    height: 1px; background: var(--color-border);
-    margin: 16px 0;
-  }
-
-  .mob-cta-accent, .mob-cta-primary, .mob-cta-ghost {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 16px;
-    border-radius: 14px;
-    font-size: 16px; font-weight: 600;
-    text-decoration: none; text-align: center;
-    margin-bottom: 10px;
+    border-top: 1px solid var(--color-border);
     transition: background .15s;
   }
-  .mob-cta-accent { background: #e0f8ea; color: #16a34a; }
-  .mob-cta-accent:hover { background: #c7f3d8; }
-  .mob-cta-primary { background: var(--color-primary); color: white; }
-  .mob-cta-primary:hover { background: var(--color-primary-dark); }
-  .mob-cta-ghost { background: #F3F7F9; color: var(--color-navy); border: 1px solid var(--color-border); }
-  .mob-cta-ghost:hover { background: #e8eff5; }
+  .mob-link:first-of-type { border-top: none; }
+  .mob-link:active { background: #f0f4f8; }
+
+  .mob-link-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: #e7f0fa;
+    color: var(--color-primary);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+
+  .mob-link-text { flex: 1; }
+
+  .mob-link-arrow {
+    color: var(--color-muted);
+    flex-shrink: 0;
+    transition: transform .2s;
+  }
+  .mob-link:active .mob-link-arrow { transform: translateX(4px); }
+
+  /* ── CTA cards ──────────────────────────────────── */
+  .mob-section-ctas {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mob-cta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: transform .15s, box-shadow .15s;
+    border: 1px solid transparent;
+  }
+  .mob-cta:active { transform: scale(0.98); }
+
+  .mob-cta-diagnose {
+    background: linear-gradient(135deg, #2ECC71, #25a85a);
+    color: white;
+    box-shadow: 0 6px 20px -6px rgba(46,204,113,.55);
+  }
+  .mob-cta-diagnose:active { box-shadow: 0 2px 8px -4px rgba(46,204,113,.4); }
+
+  .mob-cta-book {
+    background: linear-gradient(135deg, var(--color-primary), #1a3578);
+    color: white;
+    box-shadow: 0 6px 20px -6px rgba(27,63,144,.5);
+  }
+  .mob-cta-book:active { box-shadow: 0 2px 8px -4px rgba(27,63,144,.4); }
+
+  .mob-cta-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.2);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+
+  .mob-cta-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mob-cta-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .mob-cta-sub {
+    font-size: 12px;
+    opacity: .8;
+    font-weight: 400;
+  }
+
+  /* ── Bottom contact strip ───────────────────────── */
+  .mob-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 0 4px;
+    font-size: 13px;
+    color: var(--color-muted);
+    flex-wrap: wrap;
+  }
+  .mob-phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .mob-contact-sep { color: var(--color-border); }
+  .mob-contact-hours { font-size: 12px; }
 
   /* ── Responsive breakpoints ─────────────────────── */
   @media (max-width: 900px) {

@@ -1,0 +1,333 @@
+---
+const locations = {
+  espinar: {
+    name: "Sede Espinar",
+    address: "Calle Anta 107",
+    city: "Espinar, Cusco",
+    phone: "+51 900 000 001",
+    phoneRaw: "+51900000001",
+    email: "espinar@sanfelipe.pe",
+    mapQuery: "Calle Anta 107, Espinar, Cusco, Peru",
+  },
+  arequipa: {
+    name: "Sede Arequipa",
+    address: "Calle Marañón 301",
+    city: "Cercado, Arequipa",
+    phone: "+51 900 000 002",
+    phoneRaw: "+51900000002",
+    email: "arequipa@sanfelipe.pe",
+    mapQuery: "Calle Marañón 301, Arequipa, Peru",
+  },
+};
+
+const hours = [
+  { day: "Lunes", time: "9:00 — 19:00", dayIdx: 1 },
+  { day: "Martes", time: "9:00 — 19:00", dayIdx: 2 },
+  { day: "Miércoles", time: "9:00 — 19:00", dayIdx: 3 },
+  { day: "Jueves", time: "9:00 — 19:00", dayIdx: 4 },
+  { day: "Viernes", time: "9:00 — 19:00", dayIdx: 5 },
+  { day: "Sábado", time: "9:00 — 14:00", dayIdx: 6 },
+  { day: "Domingo", time: "Cerrado", dayIdx: 0, closed: true },
+];
+---
+
+<!-- Location section -->
+<section class="section-pad" id="ubicacion" aria-label="Ubicación de nuestras sedes">
+  <div class="container">
+
+    <div class="sect-head">
+      <div class="sect-head-text">
+        <span class="eyebrow-label">Ubicación</span>
+        <h2>Dos sedes, la misma sonrisa.</h2>
+        <p>Visítanos en Espinar o Arequipa. Estacionamiento cercano y acceso fácil en transporte público.</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="loc-tabs" role="tablist">
+      <button class="loc-tab active" role="tab" data-tab="espinar" aria-selected="true">Sede Espinar</button>
+      <button class="loc-tab" role="tab" data-tab="arequipa" aria-selected="false">Sede Arequipa</button>
+    </div>
+
+    <!-- Tab panels -->
+    {Object.entries(locations).map(([key, loc]) => (
+      <div class="loc-grid" id={`tab-${key}`} data-panel={key} role="tabpanel" aria-hidden={key !== "espinar" ? "true" : "false"} style={key !== "espinar" ? "display:none" : ""}>
+        <div class="loc-info">
+          <h3>{loc.name}</h3>
+          <div class="loc-details">
+            <div class="loc-detail">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" class="loc-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <div>
+                <div class="loc-detail-label">Dirección</div>
+                <div class="loc-detail-value">{loc.address}</div>
+                <div class="loc-detail-sub">{loc.city}</div>
+              </div>
+            </div>
+            <div class="loc-detail">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" class="loc-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <div>
+                <div class="loc-detail-label">Teléfono</div>
+                <a href={`tel:${loc.phoneRaw}`} class="loc-detail-value loc-link">{loc.phone}</a>
+              </div>
+            </div>
+            <div class="loc-detail">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" class="loc-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <div>
+                <div class="loc-detail-label">Correo</div>
+                <a href={`mailto:${loc.email}`} class="loc-detail-value loc-link">{loc.email}</a>
+              </div>
+            </div>
+          </div>
+          <div class="loc-actions">
+            <a href="#reservar" class="btn btn-primary">Reservar en {key === "espinar" ? "Espinar" : "Arequipa"}</a>
+            <a href={`https://maps.google.com/?q=${encodeURIComponent(loc.mapQuery)}`} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+              Cómo llegar
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="loc-map">
+          <iframe
+            title={`Mapa ${loc.name}`}
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(loc.mapQuery)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            width="100%"
+            height="100%"
+            style="border:0;min-height:480px;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            aria-label={`Mapa de ${loc.name}`}
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Hours section -->
+<section class="section-pad hours-section" id="horarios" aria-label="Horarios de atención">
+  <div class="container">
+    <div class="hours-grid">
+      <div>
+        <span class="eyebrow-label">Horarios</span>
+        <h2 style="margin-top:14px; font-size:clamp(26px,3vw,38px); font-weight:700; letter-spacing:-0.025em; color:var(--color-navy); line-height:1.1;">
+          Atendemos cuando lo necesitas.
+        </h2>
+        <p style="color:var(--color-muted); margin-top:16px; line-height:1.55;">
+          Citas de emergencia y consultas el mismo día disponibles. Llámanos o escríbenos al WhatsApp.
+        </p>
+      </div>
+      <div class="hours-list">
+        {hours.map((h) => (
+          <div class={`hours-row ${h.closed ? "hours-closed" : ""}`} data-day-idx={h.dayIdx}>
+            <span class="hours-day">{h.day}</span>
+            <span class="hours-time">{h.time}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sect-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .sect-head-text { max-width: 620px; }
+  .sect-head-text h2 {
+    font-size: clamp(28px, 3.4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--color-navy);
+    margin-top: 14px;
+    line-height: 1.1;
+  }
+  .sect-head-text p { color: var(--color-muted); font-size: 17px; margin-top: 14px; }
+
+  .eyebrow-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .eyebrow-label::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--color-primary);
+    display: inline-block;
+  }
+
+  .loc-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    background: #F3F7F9;
+    padding: 4px;
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .loc-tab {
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: all .2s ease;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+  }
+  .loc-tab.active {
+    background: #ffffff;
+    color: var(--color-navy);
+    box-shadow: 0 1px 4px rgba(27,63,144,.08);
+  }
+
+  .loc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+
+  .loc-info h3 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-navy);
+    margin-bottom: 24px;
+  }
+
+  .loc-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .loc-detail {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+  }
+  .loc-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+  .loc-detail-label { font-size: 12px; color: var(--color-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .loc-detail-value { font-weight: 600; font-size: 15px; margin-top: 2px; color: var(--color-navy); }
+  .loc-detail-sub { font-size: 13px; color: var(--color-muted); margin-top: 2px; }
+  .loc-link { color: var(--color-primary); }
+  .loc-link:hover { text-decoration: underline; }
+
+  .loc-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .loc-map {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    min-height: 480px;
+    background: #F3F7F9;
+  }
+
+  /* Hours */
+  .hours-section {
+    background: #ffffff;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hours-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 32px;
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 15px;
+    color: var(--color-navy);
+  }
+  .hours-row.today {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  .hours-row.hours-closed .hours-time { color: var(--color-muted); }
+  .hours-day { font-weight: 500; }
+  .hours-time { color: var(--color-muted); }
+  .hours-row.today .hours-time { color: var(--color-primary); }
+
+  /* "hoy" badge — added via JS */
+  .today-badge {
+    margin-left: 8px;
+    font-size: 10px;
+    background: #2ECC71;
+    color: white;
+    padding: 2px 7px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .loc-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hours-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hours-list { grid-template-columns: 1fr; }
+    .sect-head { flex-direction: column; gap: 12px; }
+  }
+</style>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll<HTMLButtonElement>(".loc-tab");
+  const panels = document.querySelectorAll<HTMLElement>("[data-panel]");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.tab!;
+      tabs.forEach((t) => { t.classList.toggle("active", t === tab); t.setAttribute("aria-selected", t === tab ? "true" : "false"); });
+      panels.forEach((p) => {
+        const show = p.dataset.panel === target;
+        p.style.display = show ? "" : "none";
+        p.setAttribute("aria-hidden", show ? "false" : "true");
+      });
+    });
+  });
+
+  // Highlight today
+  const today = new Date().getDay(); // 0=Sun
+  document.querySelectorAll<HTMLElement>(".hours-row").forEach((row) => {
+    const idx = parseInt(row.dataset.dayIdx || "-1");
+    if (idx === today) {
+      row.classList.add("today");
+      const daySpan = row.querySelector(".hours-day")!;
+      const badge = document.createElement("span");
+      badge.className = "today-badge";
+      badge.textContent = "hoy";
+      daySpan.appendChild(badge);
+    }
+  });
+</script>

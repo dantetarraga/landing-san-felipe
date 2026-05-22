@@ -1,0 +1,84 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import { team } from "../../data/team";
+---
+
+<section class="section-pad" id="equipo" aria-label="Nuestro equipo médico">
+  <div class="container">
+
+    <SectionHeader
+      eyebrow="Nuestro equipo"
+      title="Profesionales que escuchan antes de tratar."
+      body="Un equipo multidisciplinario que se actualiza constantemente para darte el mejor cuidado."
+    />
+
+    <div class="team-grid">
+      {team.map((m) => (
+        <article class="team-card">
+          <div class="team-photo" style={`background: linear-gradient(160deg, ${m.avatarBg}, #F3F7F9);`}>
+            <div class="team-avatar" style={`background: ${m.avatarBg}; color: ${m.avatarText};`}>
+              {m.initials}
+            </div>
+            <div class="team-ph-label">FOTO REAL · {m.initials}</div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">{m.name}</div>
+            <div class="team-spec">{m.spec}</div>
+            <p class="team-bio">{m.bio}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .team-card {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .team-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px -8px rgba(27,63,144,.14); }
+
+  .team-photo {
+    aspect-ratio: 4/5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-avatar {
+    width: 80px; height: 80px;
+    border-radius: 999px;
+    display: grid; place-items: center;
+    font-size: 22px; font-weight: 800;
+  }
+
+  .team-ph-label {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(11,29,51,.75);
+    color: white;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 4px;
+    font-family: ui-monospace, monospace;
+  }
+
+  .team-info { padding: 20px; }
+  .team-name { font-weight: 700; font-size: 15px; color: var(--color-navy); }
+  .team-spec { color: var(--color-primary); font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .team-bio { color: var(--color-muted); font-size: 13px; margin-top: 10px; line-height: 1.45; }
+
+  @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .team-grid { grid-template-columns: 1fr; } }
+</style>

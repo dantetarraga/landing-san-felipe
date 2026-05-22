@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { team } from "../data/team";
+---
+
+<Layout
+  title="Nuestro Equipo Médico | Clínica Dental San Felipe"
+  description="Conoce al equipo de dentistas de Clínica San Felipe en Espinar y Arequipa. Profesionales certificados comprometidos con tu salud bucal."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-24" style="background: linear-gradient(135deg, #1B3F90, #152f6b);">
+    <div class="container text-center">
+      <h1 class="text-white font-heading font-extrabold mb-4" style="font-size: clamp(2rem, 4.5vw, 3rem);">
+        El equipo que cuidará de ti
+      </h1>
+      <p class="text-lg max-w-2xl mx-auto" style="color: rgba(255,255,255,0.8);">
+        Profesionales certificados con años de experiencia y un compromiso real con tu bienestar. Antes de tratar, escuchamos.
+      </p>
+    </div>
+  </section>
+
+  <!-- Team grid -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {team.map((member) => (
+          <article class="card p-8 flex flex-col sm:flex-row gap-6">
+            <!-- Avatar -->
+            <div class="shrink-0 text-center sm:text-left">
+              <div
+                class="w-24 h-24 rounded-2xl flex items-center justify-center text-white text-2xl font-extrabold font-heading mx-auto sm:mx-0"
+                style={`background: linear-gradient(135deg, ${member.color}, ${member.color}88);`}
+              >
+                {member.initials}
+              </div>
+              <div class="mt-2 text-xs font-semibold px-3 py-1 rounded-full inline-block"
+                style="background: var(--color-surface); color: var(--color-muted); font-family: var(--font-heading);">
+                {member.sede === "Ambas" ? "Espinar y Arequipa" : `Sede ${member.sede}`}
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="flex-1">
+              <h2 class="font-heading font-bold text-xl mb-1" style="color: var(--color-navy);">{member.name}</h2>
+              <p class="text-sm font-semibold mb-1" style="color: var(--color-primary);">{member.specialty}</p>
+              <p class="text-xs mb-3" style="color: var(--color-muted);">
+                {member.experience} de experiencia · {member.university}
+              </p>
+              <blockquote class="text-sm italic leading-relaxed px-4 py-3 rounded-xl"
+                style="color: var(--color-muted); background: var(--color-surface); border-left: 3px solid var(--color-accent);">
+                "{member.quote}"
+              </blockquote>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-pad" style="background: var(--color-surface);">
+    <div class="container text-center max-w-xl">
+      <h2 class="section-title text-center mb-4">Agenda con nuestro equipo</h2>
+      <p class="section-subtitle mx-auto text-center mb-8">
+        Reserva tu cita y especifica con qué especialista preferirías atenderte.
+      </p>
+      <a href="/cita" class="btn btn-primary">📅 Reservar mi cita</a>
+    </div>
+  </section>
+</Layout>

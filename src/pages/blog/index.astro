@@ -1,0 +1,62 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { blogPosts } from "../../data/blog";
+---
+
+<Layout
+  title="Blog Dental — Consejos para tu Salud Bucal | Clínica San Felipe"
+  description="Artículos sobre salud dental, tratamientos y consejos de higiene bucal. Blog de la Clínica Dental San Felipe en Espinar y Arequipa."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-20" style="background: linear-gradient(135deg, #1B3F90, #152f6b);">
+    <div class="container text-center">
+      <span class="section-eyebrow" style="background: rgba(46,204,113,0.15); color: #4fd986; border: 1px solid rgba(46,204,113,0.3);">Blog Dental</span>
+      <h1 class="text-white font-heading font-extrabold mt-3 mb-4" style="font-size: clamp(1.875rem, 4vw, 2.75rem);">
+        Consejos para tu salud bucal
+      </h1>
+      <p class="text-lg max-w-2xl mx-auto" style="color: rgba(255,255,255,0.8);">
+        Artículos escritos por nuestro equipo para que cuides tu sonrisa todos los días.
+      </p>
+    </div>
+  </section>
+
+  <!-- Posts grid -->
+  <section class="section-pad">
+    <div class="container max-w-5xl">
+      <div class="grid md:grid-cols-3 gap-6">
+        {blogPosts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="card group flex flex-col overflow-hidden">
+            <div class="h-40 flex items-end p-5" style={`background: linear-gradient(135deg, ${post.color}22, ${post.color}44);`}>
+              <span class="badge" style={`background: ${post.color}22; color: ${post.color};`}>{post.category}</span>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <div class="flex items-center gap-2 text-xs mb-3" style="color: var(--color-muted);">
+                <time datetime={post.date}>
+                  {new Date(post.date).toLocaleDateString("es-PE", { day: "numeric", month: "long", year: "numeric" })}
+                </time>
+                · <span>{post.readTime} de lectura</span>
+              </div>
+              <h2 class="font-heading font-bold text-base leading-snug flex-1 mb-3" style="color: var(--color-navy);">
+                {post.title}
+              </h2>
+              <p class="text-sm leading-relaxed mb-4" style="color: var(--color-muted);">{post.excerpt}</p>
+              <div class="flex items-center gap-1.5 text-sm font-semibold" style="color: var(--color-primary); font-family: var(--font-heading);">
+                Leer artículo
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA to schedule -->
+      <div class="mt-16 text-center p-8 rounded-3xl" style="background: var(--color-surface);">
+        <h2 class="font-heading font-bold text-xl mb-3" style="color: var(--color-navy);">¿Tienes dudas sobre tu salud bucal?</h2>
+        <p class="text-sm mb-6" style="color: var(--color-muted);">No lo leas solo en internet. Agenda tu diagnóstico y te lo resolvemos en persona.</p>
+        <a href="/cita" class="btn btn-primary">📅 Reservar cita</a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,78 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  /** When true renders the header in a flex row with the slot on the right */
+  row?: boolean;
+}
+
+const { eyebrow, title, body, row = false } = Astro.props;
+---
+
+<div class:list={["sect-head", { "sect-head--row": row }]}>
+  <div class="sect-head-text">
+    {eyebrow && <span class="eyebrow-label">{eyebrow}</span>}
+    <h2>{title}</h2>
+    {body && <p>{body}</p>}
+  </div>
+  <slot />
+</div>
+
+<style>
+  .sect-head {
+    margin-bottom: 48px;
+  }
+  .sect-head--row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+  }
+
+  .sect-head-text {
+    max-width: 620px;
+  }
+
+  .eyebrow-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .eyebrow-label::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--color-primary);
+    display: inline-block;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--color-navy);
+    margin-top: 14px;
+    line-height: 1.1;
+  }
+
+  p {
+    color: var(--color-muted);
+    font-size: 17px;
+    margin-top: 14px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 720px) {
+    .sect-head--row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  }
+</style>

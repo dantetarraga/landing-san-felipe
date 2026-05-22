@@ -1,0 +1,206 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const waMessage = encodeURIComponent(
+  "Hola! Me gustaría hacer un chequeo y diagnóstico dental. ¿Tienen disponibilidad?"
+);
+const waUrl = `https://wa.me/51999999999?text=${waMessage}`;
+
+const motivations = [
+  { icon: "😣", title: "Siento dolor en una muela", description: "No esperes más. El dolor dental no desaparece solo y puede empeorar." },
+  { icon: "🤔", title: "No sé qué tratamiento necesito", description: "Evaluamos tu situación y te explicamos exactamente qué opciones tienes." },
+  { icon: "😰", title: "Hace tiempo no voy al dentista", description: "Sin juicio. Te hacemos un diagnóstico completo desde cero." },
+  { icon: "💰", title: "Quiero saber cuánto me costará", description: "Te damos un presupuesto detallado y honesto. Sin sorpresas." },
+  { icon: "😟", title: "Le tengo miedo al dentista", description: "Trabajamos a tu ritmo. El diagnóstico es relajado y sin procedimientos." },
+  { icon: "🔍", title: "Quiero una segunda opinión", description: "Revisamos tu historial o diagnóstico anterior con total independencia." },
+];
+
+const steps = [
+  {
+    step: "01",
+    title: "Escríbenos o reserva online",
+    description: "Por WhatsApp o formulario. Sin espera, sin complicaciones.",
+    icon: "💬",
+  },
+  {
+    step: "02",
+    title: "Cuéntanos cómo te sientes",
+    description: "No hay preguntas tontas. Queremos entender tu situación completa.",
+    icon: "🗣️",
+  },
+  {
+    step: "03",
+    title: "Te hacemos la exploración",
+    description: "Revisión visual, sondaje y radiografía si es necesario.",
+    icon: "🔬",
+  },
+  {
+    step: "04",
+    title: "Recibiste tu plan claro",
+    description: "Te explicamos qué encontramos, qué opciones tienes y cuánto cuesta. Sin presiones.",
+    icon: "📋",
+  },
+];
+---
+
+<Layout
+  title="Chequeo y Diagnóstico Dental Gratis | Clínica Dental San Felipe"
+  description="¿Tienes dolor o no sabes qué tratamiento necesitas? Pide tu chequeo y diagnóstico gratis en Clínica San Felipe. Espinar y Arequipa. Sin compromiso."
+>
+
+  <!-- Hero -->
+  <section
+    class="relative overflow-hidden py-20 md:py-28"
+    style="background: linear-gradient(135deg, #1B3F90 0%, #152f6b 100%);"
+  >
+    <div class="absolute inset-0 opacity-[0.04]"
+      style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 50px 50px;"
+      aria-hidden="true"></div>
+
+    <div class="container relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-semibold"
+        style="background: rgba(46,204,113,0.15); color: #4fd986; border: 1px solid rgba(46,204,113,0.3);">
+        🦷 Completamente gratuito · Sin compromiso
+      </div>
+
+      <h1 class="text-white font-heading font-extrabold mb-6 leading-tight"
+        style="font-size: clamp(2rem, 5vw, 3.25rem);">
+        ¿Tienes dolor o no sabes<br class="hidden sm:block" />
+        <span style="color: #2ECC71;">por dónde empezar?</span>
+      </h1>
+
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10" style="color: rgba(255,255,255,0.8);">
+        Te entendemos. Nuestro Chequeo y Diagnóstico está diseñado exactamente para ti: sin procedimientos, sin presiones y con toda la información que necesitas para decidir con calma.
+      </p>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href={waUrl} target="_blank" rel="noopener" class="btn btn-primary text-base px-8 py-4">
+          💬 Escribir por WhatsApp
+        </a>
+        <a href="#form" class="btn btn-outline-white text-base px-8 py-4">
+          Llenar formulario
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why people come section -->
+  <section class="section-pad" style="background: var(--color-surface);">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="section-title">¿En cuál de estas situaciones estás?</h2>
+        <p class="section-subtitle mx-auto text-center mt-3">
+          No importa cuál sea tu caso. Estamos preparados para ayudarte.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {motivations.map((m) => (
+          <div class="bg-white rounded-2xl p-6 border" style="border-color: var(--color-border);">
+            <span class="text-4xl block mb-3" aria-hidden="true">{m.icon}</span>
+            <h3 class="font-heading font-bold text-base mb-2" style="color: var(--color-navy);">{m.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--color-muted);">{m.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section-pad">
+    <div class="container max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="section-title">¿Cómo funciona el chequeo?</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {steps.map((s) => (
+          <div class="text-center">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4"
+              style="background: color-mix(in srgb, var(--color-primary) 10%, transparent);">
+              {s.icon}
+            </div>
+            <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--color-muted);">Paso {s.step}</div>
+            <h3 class="font-heading font-bold text-sm mb-2" style="color: var(--color-navy);">{s.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--color-muted);">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Form section -->
+  <section class="section-pad" style="background: var(--color-surface);" id="form">
+    <div class="container max-w-xl">
+      <div class="bg-white rounded-3xl p-8 md:p-10" style="box-shadow: 0 20px 60px rgba(27,63,144,0.1);">
+        <h2 class="font-heading font-bold text-2xl mb-2" style="color: var(--color-navy);">
+          Pide tu chequeo gratis
+        </h2>
+        <p class="text-sm mb-6" style="color: var(--color-muted);">
+          Te contactamos en menos de 2 horas para coordinar tu visita.
+        </p>
+
+        <form id="diagnostic-form" novalidate class="space-y-4">
+          <div>
+            <label for="diag-name" class="label">Tu nombre *</label>
+            <input type="text" id="diag-name" name="name" class="input" placeholder="¿Cómo te llamas?" required autocomplete="name" />
+          </div>
+          <div>
+            <label for="diag-phone" class="label">Teléfono / WhatsApp *</label>
+            <input type="tel" id="diag-phone" name="phone" class="input" placeholder="+51 999 999 999" required inputmode="tel" autocomplete="tel" />
+          </div>
+          <div>
+            <label for="diag-sede" class="label">Sede preferida *</label>
+            <select id="diag-sede" name="sede" class="input" required>
+              <option value="">Selecciona tu sede...</option>
+              <option value="espinar">📍 Espinar — Calle Anta 107</option>
+              <option value="arequipa">📍 Arequipa — Calle Marañón 301</option>
+            </select>
+          </div>
+          <div>
+            <label for="diag-msg" class="label">¿Qué te ocurre? (opcional)</label>
+            <textarea id="diag-msg" name="message" class="input" rows="3" placeholder="Cuéntanos brevemente: dolor, fecha del último dentista, lo que quieras..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full py-4 text-base">
+            🦷 Solicitar chequeo gratis
+          </button>
+          <p class="text-center text-xs" style="color: var(--color-muted);">
+            Sin compromiso de tratamiento. 100% gratuito.
+          </p>
+        </form>
+
+        <div id="diag-success" class="hidden text-center py-8">
+          <div class="text-5xl mb-4">✅</div>
+          <h3 class="font-heading font-bold text-lg mb-2" style="color: var(--color-navy);">¡Solicitud recibida!</h3>
+          <p class="text-sm" style="color: var(--color-muted);">
+            Te contactaremos pronto para coordinar tu visita. ¡Gracias por confiar en nosotros!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById("diagnostic-form") as HTMLFormElement;
+  const success = document.getElementById("diag-success");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = data.get("name") as string;
+    const phone = data.get("phone") as string;
+    const sede = data.get("sede") as string;
+    const msg = data.get("message") as string;
+
+    const message = encodeURIComponent(
+      `Hola! Me llamo ${name} y quiero un chequeo y diagnóstico.\n` +
+      `📍 Sede: ${sede}\n📞 Tel: ${phone}\n` +
+      (msg ? `📝 Comentario: ${msg}` : "")
+    );
+    form.classList.add("hidden");
+    success?.classList.remove("hidden");
+    setTimeout(() => {
+      window.open(`https://wa.me/51999999999?text=${message}`, "_blank", "noopener");
+    }, 600);
+  });
+</script>

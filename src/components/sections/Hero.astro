@@ -1,0 +1,221 @@
+---
+---
+
+<section class="hero-fullbleed" aria-label="Sección principal">
+  <!-- Background photo placeholder -->
+  <div class="hero-fullbleed-bg">
+    <div class="ph">
+      <!-- Replace this div with <img src="/foto-hero.jpg" alt="..." class="ph-img" /> -->
+      <div class="ph-caption">FOTO REAL · FONDO COMPLETO — Sugerencia: foto wide del equipo o clínica, alta resolución, tonos cálidos / luz natural</div>
+    </div>
+    <div class="hero-fullbleed-overlay"></div>
+  </div>
+
+  <div class="container hero-fullbleed-content">
+    <!-- Eyebrow -->
+    <span class="hero-eyebrow">Clínica Dental · Espinar & Arequipa</span>
+
+    <!-- H1 -->
+    <h1 class="hero-fullbleed-title">
+      Tu sonrisa,<br/>
+      <strong>nuestra pasión</strong>.
+    </h1>
+
+    <!-- Lede -->
+    <p class="hero-fullbleed-lede">
+      Atención dental cercana, profesional y sin miedos. Desde tu primera limpieza hasta el diseño completo de sonrisa, te acompañamos con calma y resultados que se ven.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-cta-group">
+      <a href="#reservar" class="btn btn-accent">
+        Chequeo y diagnóstico
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+      <a href="#reservar" class="btn btn-outline-white">Reservar cita</a>
+    </div>
+
+    <!-- Help text -->
+    <p class="hero-help-text">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" style="color:#2ECC71;flex-shrink:0">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/>
+      </svg>
+      ¿Tienes dolor o no sabes qué tratamiento necesitas? Empieza por aquí — orientación gratuita y sin compromiso.
+    </p>
+
+    <!-- Stats -->
+    <div class="hero-fullbleed-stats">
+      <div class="hfb-stat">
+        <div class="hfb-stat-num">15+</div>
+        <div class="hfb-stat-lbl">Años cuidando sonrisas</div>
+      </div>
+      <div class="hfb-stat">
+        <div class="hfb-stat-num">8.4k</div>
+        <div class="hfb-stat-lbl">Pacientes felices</div>
+      </div>
+      <div class="hfb-stat">
+        <div class="hfb-stat-num">2</div>
+        <div class="hfb-stat-lbl">Sedes en el sur</div>
+      </div>
+      <div class="hfb-stat">
+        <div class="hfb-stat-num" style="color: #2ECC71;">★ 4.9</div>
+        <div class="hfb-stat-lbl">+800 reseñas Google</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-fullbleed {
+    position: relative;
+    min-height: 720px;
+    display: flex;
+    align-items: center;
+    /* Pull up behind the fixed header so its dark bg shows through */
+    margin-top: -76px;
+    padding: calc(80px + 76px) 0 80px;
+    overflow: hidden;
+    color: white;
+  }
+
+  .hero-fullbleed-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .ph {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1B3F90 0%, #15327a 60%, #0e1f3d 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .ph::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 18px, rgba(255,255,255,.04) 18px, rgba(255,255,255,.04) 19px);
+  }
+  /* When a real photo is used, style it: */
+  .ph-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .ph-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,.4);
+    font-family: ui-monospace, monospace;
+  }
+
+  .hero-fullbleed-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(11,29,51,.85) 0%, rgba(11,29,51,.55) 50%, rgba(11,29,51,.4) 100%),
+      linear-gradient(180deg, rgba(11,29,51,.3) 0%, transparent 40%, rgba(11,29,51,.5) 100%);
+  }
+
+  .hero-fullbleed-content {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.8);
+    margin-bottom: 18px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: rgba(255,255,255,.6);
+    display: inline-block;
+  }
+
+  .hero-fullbleed-title {
+    color: white !important;
+    margin-top: 0;
+    font-size: clamp(40px, 5.8vw, 76px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-family: var(--font-heading);
+  }
+  .hero-fullbleed-title strong {
+    color: #2ECC71;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .hero-fullbleed-lede {
+    color: rgba(255,255,255,.85);
+    margin-top: 22px;
+    font-size: 19px;
+    max-width: 580px;
+    line-height: 1.5;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero-help-text {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,.7);
+    max-width: 560px;
+    line-height: 1.4;
+  }
+
+  .hero-fullbleed-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,.18);
+    flex-wrap: wrap;
+  }
+  .hfb-stat-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-family: var(--font-heading);
+  }
+  .hfb-stat-lbl {
+    font-size: 13px;
+    color: rgba(255,255,255,.7);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 720px) {
+    .hero-fullbleed { min-height: 560px; margin-top: -64px; padding: calc(64px + 64px) 0 48px; }
+    .hero-fullbleed-stats { gap: 24px; flex-wrap: wrap; padding-top: 24px; margin-top: 40px; }
+    .hfb-stat-num { font-size: 28px; }
+    .hero-fullbleed-lede { font-size: 17px; }
+  }
+</style>

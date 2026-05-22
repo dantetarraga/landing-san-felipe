@@ -1,0 +1,106 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const sedeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  name: "Clínica Dental San Felipe — Espinar",
+  description: "Clínica dental en Espinar, Cusco. Cuidamos tu salud bucal con tecnología moderna.",
+  url: "https://clinicasanfelipe.pe/sedes/espinar",
+  telephone: "+51999999999",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Calle Anta 107",
+    addressLocality: "Espinar",
+    addressRegion: "Cusco",
+    addressCountry: "PE",
+  },
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "09:00", closes: "19:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "14:00" },
+  ],
+};
+---
+
+<Layout
+  title="Dentista en Espinar | Sede Espinar — Clínica Dental San Felipe"
+  description="Clínica Dental San Felipe en Espinar, Cusco. Calle Anta 107. Limpieza, implantes, ortodoncia y más. Lun-Vie 9:00-19:00, Sáb 9:00-14:00. Reserva tu cita."
+  schema={sedeSchema}
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-24 text-center" style="background: linear-gradient(135deg, #1B3F90, #152f6b);">
+    <div class="container">
+      <div class="text-4xl mb-4" aria-hidden="true">📍</div>
+      <h1 class="text-white font-heading font-extrabold mb-3" style="font-size: clamp(2rem, 4vw, 2.75rem);">
+        Sede Espinar
+      </h1>
+      <p class="text-lg mb-2" style="color: rgba(255,255,255,0.85);">Calle Anta 107, Espinar, Cusco</p>
+      <p class="text-sm mb-8" style="color: rgba(255,255,255,0.65);">Lun–Vie: 9:00–19:00 · Sáb: 9:00–14:00</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="/cita" class="btn btn-primary">📅 Reservar en Espinar</a>
+        <a href="tel:+51999999999" class="btn btn-outline-white">📞 +51 999 999 999</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info grid -->
+  <section class="section-pad">
+    <div class="container max-w-4xl">
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Map placeholder -->
+        <div class="rounded-2xl overflow-hidden h-72 flex items-center justify-center"
+          style="background: linear-gradient(135deg, #1B3F9015, #1B3F9030); border: 1px solid var(--color-border);">
+          <div class="text-center">
+            <div class="text-5xl mb-3">🗺️</div>
+            <p class="font-semibold text-sm" style="color: var(--color-navy);">Calle Anta 107</p>
+            <p class="text-xs" style="color: var(--color-muted);">Espinar, Cusco, Perú</p>
+            <a href="https://maps.google.com/?q=Calle+Anta+107+Espinar+Cusco"
+              target="_blank" rel="noopener"
+              class="mt-3 btn btn-outline-primary btn-sm inline-flex">
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- Info card -->
+        <div class="space-y-5">
+          <h2 class="section-title">Información de la sede</h2>
+
+          {[
+            { icon: "📍", label: "Dirección", value: "Calle Anta 107, Espinar, Cusco, Perú" },
+            { icon: "🕐", label: "Horarios", value: "Lun–Vie: 9:00–19:00 | Sábado: 9:00–14:00 | Dom: Cerrado" },
+            { icon: "📞", label: "Teléfono", value: "+51 999 999 999" },
+            { icon: "💬", label: "WhatsApp", value: "+51 999 999 999" },
+          ].map((info) => (
+            <div class="flex gap-4">
+              <span class="text-2xl shrink-0" aria-hidden="true">{info.icon}</span>
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--color-muted); font-family: var(--font-heading);">{info.label}</div>
+                <div class="text-sm font-medium" style="color: var(--color-navy);">{info.value}</div>
+              </div>
+            </div>
+          ))}
+
+          <div class="pt-4 flex gap-3">
+            <a href="/cita" class="btn btn-primary flex-1 justify-center">Reservar cita</a>
+            <a href="https://wa.me/51999999999" target="_blank" rel="noopener"
+              class="btn flex-1 justify-center text-white" style="background: #25D366;">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services available -->
+  <section class="section-pad" style="background: var(--color-surface);">
+    <div class="container text-center max-w-2xl">
+      <h2 class="section-title mb-4">Servicios disponibles en Espinar</h2>
+      <p class="section-subtitle mx-auto mb-8">
+        Atendemos todos nuestros tratamientos en la sede de Espinar.
+      </p>
+      <a href="/servicios" class="btn btn-outline-primary">Ver todos los servicios</a>
+    </div>
+  </section>
+</Layout>

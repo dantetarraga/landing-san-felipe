@@ -1,0 +1,163 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { services } from "../data/services";
+---
+
+<Layout
+  title="Reservar Cita Online | Clínica Dental San Felipe"
+  description="Reserva tu cita en Clínica Dental San Felipe. Atendemos en Espinar (Calle Anta 107) y Arequipa (Calle Marañón 301). Confirmación por WhatsApp inmediata."
+>
+  <section class="py-14 md:py-20 min-h-[60vh]">
+    <div class="container max-w-2xl">
+
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <span class="section-eyebrow">Reserva tu cita</span>
+        <h1 class="section-title text-center">
+          Agenda tu cita en minutos
+        </h1>
+        <p class="section-subtitle mx-auto text-center mt-3">
+          Completa el formulario y te confirmamos por WhatsApp. Sin esperas, sin complicaciones.
+        </p>
+      </div>
+
+      <!-- Form card -->
+      <div class="bg-white rounded-3xl p-8 md:p-10 border" style="border-color: var(--color-border); box-shadow: 0 10px 40px rgba(27,63,144,0.08);">
+        <form id="appointment-form" novalidate class="space-y-5">
+
+          <!-- Name -->
+          <div>
+            <label for="ap-name" class="label">Nombre completo *</label>
+            <input type="text" id="ap-name" name="name" class="input" placeholder="Tu nombre completo" required autocomplete="name" />
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="ap-phone" class="label">Teléfono / WhatsApp *</label>
+            <input type="tel" id="ap-phone" name="phone" class="input" placeholder="+51 999 999 999" required inputmode="tel" autocomplete="tel" />
+          </div>
+
+          <!-- Service -->
+          <div>
+            <label for="ap-service" class="label">Servicio que necesitas *</label>
+            <select id="ap-service" name="service" class="input" required>
+              <option value="">Selecciona un servicio...</option>
+              {services.map((s) => (
+                <option value={s.slug}>{s.icon} {s.name}</option>
+              ))}
+              <option value="diagnostico">🦷 No sé — quiero diagnóstico</option>
+            </select>
+          </div>
+
+          <!-- Sede -->
+          <div>
+            <label class="label">Sede preferida *</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="sede-opt flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all" style="border-color: var(--color-border);">
+                <input type="radio" name="sede" value="espinar" required />
+                <div>
+                  <div class="font-semibold text-sm" style="color: var(--color-navy); font-family: var(--font-heading);">📍 Espinar</div>
+                  <div class="text-xs" style="color: var(--color-muted);">Calle Anta 107</div>
+                </div>
+              </label>
+              <label class="sede-opt flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all" style="border-color: var(--color-border);">
+                <input type="radio" name="sede" value="arequipa" />
+                <div>
+                  <div class="font-semibold text-sm" style="color: var(--color-navy); font-family: var(--font-heading);">📍 Arequipa</div>
+                  <div class="text-xs" style="color: var(--color-muted);">Calle Marañón 301</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div>
+            <label for="ap-notes" class="label">¿Algo más que debamos saber? (opcional)</label>
+            <textarea id="ap-notes" name="notes" class="input" rows="3" placeholder="Alergias a medicamentos, miedo al dentista, tratamiento previo..."></textarea>
+          </div>
+
+          <!-- Honeypot (anti-spam) -->
+          <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <button type="submit" class="btn btn-primary w-full py-4 text-base">
+            📅 Confirmar mi reserva
+          </button>
+
+          <p class="text-center text-xs" style="color: var(--color-muted);">
+            Recibirás una confirmación por WhatsApp. Sin costo adicional.
+          </p>
+        </form>
+
+        <!-- Success state -->
+        <div id="ap-success" class="hidden text-center py-10">
+          <div class="text-6xl mb-4">✅</div>
+          <h2 class="font-heading font-bold text-xl mb-3" style="color: var(--color-navy);">¡Reserva enviada!</h2>
+          <p class="text-sm mb-6" style="color: var(--color-muted);">
+            Te hemos redirigido a WhatsApp para confirmar los detalles de tu cita. Respondemos en minutos.
+          </p>
+          <a href="/" class="btn btn-outline-primary btn-sm">Volver al inicio</a>
+        </div>
+      </div>
+
+      <!-- Trust -->
+      <div class="grid grid-cols-3 gap-4 mt-8 text-center">
+        {[
+          { icon: "🔒", text: "Datos privados" },
+          { icon: "⚡", text: "Respuesta rápida" },
+          { icon: "🆓", text: "Sin costo inicial" },
+        ].map((item) => (
+          <div>
+            <div class="text-2xl mb-1">{item.icon}</div>
+            <div class="text-xs font-semibold" style="color: var(--color-muted); font-family: var(--font-heading);">{item.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById("appointment-form") as HTMLFormElement;
+  const success = document.getElementById("ap-success");
+
+  // Radio sede styling
+  document.querySelectorAll(".sede-opt").forEach((label) => {
+    const radio = label.querySelector("input") as HTMLInputElement;
+    radio.addEventListener("change", () => {
+      document.querySelectorAll(".sede-opt").forEach((l) => {
+        (l as HTMLElement).style.borderColor = "var(--color-border)";
+        (l as HTMLElement).style.background = "";
+      });
+      (label as HTMLElement).style.borderColor = "var(--color-primary)";
+      (label as HTMLElement).style.background = "color-mix(in srgb, var(--color-primary) 5%, transparent)";
+    });
+  });
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const honeypot = (form.querySelector('[name="website"]') as HTMLInputElement)?.value;
+    if (honeypot) return;
+
+    const data = new FormData(form);
+    const name = data.get("name") as string;
+    const phone = data.get("phone") as string;
+    const service = data.get("service") as string;
+    const sede = data.get("sede") as string;
+    const notes = data.get("notes") as string;
+
+    const message = encodeURIComponent(
+      `Hola! Reserva de cita:\n` +
+      `👤 Nombre: ${name}\n` +
+      `📞 Tel: ${phone}\n` +
+      `🦷 Servicio: ${service}\n` +
+      `📍 Sede: ${sede || "Por confirmar"}\n` +
+      (notes ? `📝 Notas: ${notes}` : "")
+    );
+
+    form.classList.add("hidden");
+    success?.classList.remove("hidden");
+    setTimeout(() => {
+      window.open(`https://wa.me/51999999999?text=${message}`, "_blank", "noopener");
+    }, 700);
+  });
+</script>

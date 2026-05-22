@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { services } from "../data/services";
+
+const filters = ["Todos", "Implantes", "Diseño Sonrisa", "Ortodoncia", "Blanqueamiento"];
+
+const cases = [
+  { treatment: "Ortodoncia", duration: "18 meses", label: "Corrección de apiñamiento severo con brackets cerámicos" },
+  { treatment: "Diseño Sonrisa", duration: "3 semanas", label: "8 carillas de porcelana ultrafinas" },
+  { treatment: "Implantes", duration: "6 meses", label: "Implante de titanio con corona de porcelana" },
+  { treatment: "Blanqueamiento", duration: "2 sesiones", label: "Blanqueamiento LED profesional + mantenimiento" },
+  { treatment: "Ortodoncia", duration: "14 meses", label: "Corrección de mordida cruzada y espacios" },
+  { treatment: "Diseño Sonrisa", duration: "1 mes", label: "Combinación de blanqueamiento y carillas de composite" },
+];
+---
+
+<Layout
+  title="Antes y Después | Resultados Reales — Clínica Dental San Felipe"
+  description="Galería de resultados reales de nuestros pacientes. Ortodoncia, implantes, diseño de sonrisa y más. Clínica Dental San Felipe en Espinar y Arequipa."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-20" style="background: linear-gradient(135deg, #1B3F90, #152f6b);">
+    <div class="container text-center">
+      <h1 class="text-white font-heading font-extrabold mb-4" style="font-size: clamp(2rem, 4vw, 3rem);">
+        Resultados que hablan por sí solos
+      </h1>
+      <p class="text-lg max-w-2xl mx-auto" style="color: rgba(255,255,255,0.8);">
+        Casos reales de nuestros pacientes, compartidos con su autorización. Tu transformación podría ser la siguiente.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section-pad">
+    <div class="container">
+      <!-- Cases grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cases.map((c, i) => (
+          <div class="card overflow-hidden group">
+            <!-- Before/After visual -->
+            <div class="relative h-56 overflow-hidden" style="background: var(--color-surface);">
+              <div class="absolute left-0 top-0 w-1/2 h-full flex flex-col items-center justify-center"
+                style="background: linear-gradient(135deg, #e0e0e0, #c8c8c8);">
+                <span class="text-4xl mb-2" aria-hidden="true">🦷</span>
+                <span class="text-xs font-bold px-2 py-1 rounded-full bg-black/30 text-white">Antes</span>
+              </div>
+              <div class="absolute right-0 top-0 w-1/2 h-full flex flex-col items-center justify-center"
+                style="background: linear-gradient(135deg, #d4f5e1, #a8e6c0);">
+                <span class="text-4xl mb-2" aria-hidden="true">😁</span>
+                <span class="text-xs font-bold px-2 py-1 rounded-full text-white" style="background: var(--color-accent-dark);">Después</span>
+              </div>
+              <div class="absolute left-1/2 top-0 w-0.5 h-full -translate-x-1/2 bg-white"></div>
+              <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow z-10 text-xs font-bold" style="color: var(--color-primary);">↔</div>
+              <div class="absolute bottom-2 inset-x-0 flex justify-center pointer-events-none">
+                <span class="text-xs text-white/60 bg-black/20 px-2 py-0.5 rounded-full">
+                  Insertar fotos reales
+                </span>
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-primary">{c.treatment}</span>
+                <span class="text-xs" style="color: var(--color-muted);">{c.duration}</span>
+              </div>
+              <p class="text-sm" style="color: var(--color-navy);">{c.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-14 text-center p-8 rounded-3xl" style="background: var(--color-surface);">
+        <h2 class="font-heading font-bold text-xl mb-3" style="color: var(--color-navy);">
+          ¿Quieres este resultado?
+        </h2>
+        <p class="text-sm mb-6" style="color: var(--color-muted);">
+          Agenda tu consulta y evaluamos qué tratamiento puede transformar tu sonrisa.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/cita" class="btn btn-primary">📅 Reservar consulta</a>
+          <a href="/chequeo-y-diagnostico" class="btn btn-outline-primary">🦷 Diagnóstico gratis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

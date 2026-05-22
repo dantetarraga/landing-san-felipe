@@ -1,0 +1,55 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { services } from "../../data/services";
+---
+
+<Layout
+  title="Servicios Dentales en Espinar y Arequipa"
+  description="Todos nuestros servicios dentales: limpieza, implantes, ortodoncia, endodoncia, diseño de sonrisa y más. Clínica Dental San Felipe en Espinar y Arequipa."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-20" style="background: linear-gradient(135deg, #1B3F90 0%, #152f6b 100%);">
+    <div class="container text-center">
+      <h1 class="text-white font-heading font-extrabold mb-4" style="font-size: clamp(2rem, 4vw, 3rem);">
+        Nuestros Servicios Dentales
+      </h1>
+      <p class="text-lg max-w-2xl mx-auto" style="color: rgba(255,255,255,0.8);">
+        Desde la prevención hasta la rehabilitación completa. Cuidamos tu salud bucal en cada etapa.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services grid -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((service) => (
+          <a href={`/servicios/${service.slug}`} class="card group p-7 flex flex-col">
+            <div class="service-icon">
+              <span class="text-2xl">{service.icon}</span>
+            </div>
+            <h2 class="font-heading font-bold text-xl mb-2" style="color: var(--color-navy);">{service.name}</h2>
+            <p class="text-sm leading-relaxed flex-1 mb-4" style="color: var(--color-muted);">{service.description}</p>
+            <div class="flex items-center gap-1.5 text-sm font-semibold transition-all group-hover:gap-3"
+              style="color: var(--color-primary); font-family: var(--font-heading);">
+              {service.ctaText}
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center mt-12 p-8 rounded-3xl" style="background: var(--color-surface);">
+        <h2 class="font-heading font-bold text-xl mb-3" style="color: var(--color-navy);">¿No sabes cuál es tu tratamiento?</h2>
+        <p class="text-sm mb-6 max-w-lg mx-auto" style="color: var(--color-muted);">
+          Pide tu chequeo y diagnóstico. Te evaluamos, te explicamos todo y tú decides. Sin compromiso y sin costo.
+        </p>
+        <a href="/chequeo-y-diagnostico" class="btn btn-primary">
+          🦷 Chequeo y diagnóstico gratis
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

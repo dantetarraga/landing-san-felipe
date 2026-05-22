@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/sections/Hero.astro";
+import TrustBar from "../components/sections/TrustBar.astro";
+import Services from "../components/sections/Services.astro";
+import BeforeAfter from "../components/sections/BeforeAfter.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import TeamPreview from "../components/sections/TeamPreview.astro";
+import CTAReserva from "../components/sections/CTAReserva.astro";
+import Locations from "../components/sections/Locations.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Clínica Dental San Felipe | Dentista en Espinar y Arequipa"
+  description="Clínica Dental San Felipe en Espinar (Calle Anta 107) y Arequipa (Calle Marañón 301). Limpieza, implantes, ortodoncia, endodoncia y más. Reserva tu cita hoy."
+>
+  <Hero />
+  <TrustBar />
+  <Services />
+  <BeforeAfter />
+  <Testimonials />
+  <TeamPreview />
+  <CTAReserva />
+  <Locations />
 </Layout>

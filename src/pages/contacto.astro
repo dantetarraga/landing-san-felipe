@@ -1,0 +1,160 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Contacto | Clínica Dental San Felipe"
+  description="Contáctanos en Clínica Dental San Felipe. Sedes en Espinar (Calle Anta 107) y Arequipa (Calle Marañón 301). WhatsApp, teléfono y formulario."
+>
+  <section class="section-pad">
+    <div class="container max-w-5xl">
+
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <span class="section-eyebrow">Contacto</span>
+        <h1 class="section-title text-center">Estamos para ayudarte</h1>
+        <p class="section-subtitle mx-auto text-center mt-3">
+          Escríbenos, llámanos o completa el formulario. Respondemos en menos de 2 horas en horario de atención.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10">
+
+        <!-- Contact channels -->
+        <div class="space-y-5">
+          <h2 class="font-heading font-bold text-xl" style="color: var(--color-navy);">Canales de contacto</h2>
+
+          {[
+            {
+              icon: "💬",
+              title: "WhatsApp",
+              desc: "La forma más rápida. Respondemos en minutos.",
+              action: "Escribir ahora",
+              href: "https://wa.me/51999999999",
+              bg: "#25D366",
+              external: true,
+            },
+            {
+              icon: "📞",
+              title: "Teléfono Espinar",
+              desc: "+51 999 999 999 · Lun-Vie 9:00-19:00, Sáb 9:00-14:00",
+              action: "Llamar",
+              href: "tel:+51999999999",
+              bg: "#1B3F90",
+              external: false,
+            },
+            {
+              icon: "📞",
+              title: "Teléfono Arequipa",
+              desc: "+51 888 888 888 · Lun-Vie 9:00-19:00, Sáb 9:00-14:00",
+              action: "Llamar",
+              href: "tel:+51888888888",
+              bg: "#5C9BDB",
+              external: false,
+            },
+          ].map((ch) => (
+            <div class="flex items-start gap-4 p-5 bg-white rounded-2xl border" style="border-color: var(--color-border);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 text-white"
+                style={`background: ${ch.bg};`} aria-hidden="true">{ch.icon}</div>
+              <div class="flex-1">
+                <div class="font-heading font-bold text-sm mb-0.5" style="color: var(--color-navy);">{ch.title}</div>
+                <div class="text-xs mb-2" style="color: var(--color-muted);">{ch.desc}</div>
+                <a href={ch.href} target={ch.external ? "_blank" : undefined}
+                  rel={ch.external ? "noopener noreferrer" : undefined}
+                  class="text-xs font-bold" style={`color: ${ch.bg};`}>
+                  {ch.action} →
+                </a>
+              </div>
+            </div>
+          ))}
+
+          <!-- Sedes -->
+          <div class="p-5 bg-white rounded-2xl border" style="border-color: var(--color-border);">
+            <h3 class="font-heading font-bold text-sm mb-3" style="color: var(--color-navy);">Nuestras sedes</h3>
+            <div class="space-y-3">
+              <a href="/sedes/espinar" class="flex items-center gap-3 group">
+                <span class="text-xl">📍</span>
+                <div>
+                  <div class="text-sm font-semibold group-hover:text-primary transition-colors" style="color: var(--color-navy);">Espinar · Calle Anta 107</div>
+                  <div class="text-xs" style="color: var(--color-muted);">Cusco, Perú</div>
+                </div>
+              </a>
+              <a href="/sedes/arequipa" class="flex items-center gap-3 group">
+                <span class="text-xl">📍</span>
+                <div>
+                  <div class="text-sm font-semibold group-hover:text-primary transition-colors" style="color: var(--color-navy);">Arequipa · Calle Marañón 301</div>
+                  <div class="text-xs" style="color: var(--color-muted);">Arequipa, Perú</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div>
+          <h2 class="font-heading font-bold text-xl mb-5" style="color: var(--color-navy);">Envíanos un mensaje</h2>
+          <form id="contact-form" novalidate class="space-y-4 bg-white rounded-2xl p-6 border" style="border-color: var(--color-border);">
+            <div>
+              <label for="cont-name" class="label">Nombre *</label>
+              <input type="text" id="cont-name" name="name" class="input" placeholder="Tu nombre" required autocomplete="name" />
+            </div>
+            <div>
+              <label for="cont-phone" class="label">Teléfono *</label>
+              <input type="tel" id="cont-phone" name="phone" class="input" placeholder="+51 999 999 999" required inputmode="tel" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="cont-sede" class="label">Sede de interés</label>
+              <select id="cont-sede" name="sede" class="input">
+                <option value="">Selecciona (opcional)...</option>
+                <option>📍 Espinar — Calle Anta 107</option>
+                <option>📍 Arequipa — Calle Marañón 301</option>
+              </select>
+            </div>
+            <div>
+              <label for="cont-msg" class="label">Mensaje *</label>
+              <textarea id="cont-msg" name="message" class="input" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-full py-4">
+              Enviar mensaje
+            </button>
+          </form>
+          <div id="cont-success" class="hidden text-center p-8">
+            <div class="text-5xl mb-3">✅</div>
+            <h3 class="font-heading font-bold mb-2" style="color: var(--color-navy);">¡Mensaje enviado!</h3>
+            <p class="text-sm" style="color: var(--color-muted);">Te responderemos pronto por WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const success = document.getElementById("cont-success");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = data.get("name") as string;
+    const phone = data.get("phone") as string;
+    const msg = data.get("message") as string;
+    const sede = data.get("sede") as string;
+
+    const message = encodeURIComponent(
+      `Hola, me llamo ${name}.\n` +
+      (sede ? `📍 Sede: ${sede}\n` : "") +
+      `📞 Tel: ${phone}\n` +
+      `💬 ${msg}`
+    );
+    form.classList.add("hidden");
+    success?.classList.remove("hidden");
+    setTimeout(() => {
+      window.open(`https://wa.me/51999999999?text=${message}`, "_blank", "noopener");
+    }, 600);
+  });
+</script>
+
+<style>
+  .hover\:text-primary:hover { color: var(--color-primary); }
+</style>

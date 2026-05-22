@@ -1,0 +1,131 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import { testimonials } from "../../data/testimonials";
+---
+
+<section class="section-pad testimonials-section" id="testimonios" aria-label="Testimonios de pacientes">
+  <div class="container">
+
+    <SectionHeader
+      eyebrow="Testimonios"
+      title="Lo que dicen quienes ya confían en nosotros."
+      body="Más de 8.400 pacientes nos han elegido. Estas son algunas de sus historias."
+      row
+    >
+      <div class="t-nav" aria-label="Navegación de testimonios">
+        <button id="t-prev" class="t-nav-btn" aria-label="Testimonio anterior">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16L3 12m0 0l4-4M3 12h18"/></svg>
+        </button>
+        <button id="t-next" class="t-nav-btn" aria-label="Siguiente testimonio">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </button>
+      </div>
+    </SectionHeader>
+
+    <div class="t-grid" id="t-grid" aria-live="polite">
+      {testimonials.map((t, i) => (
+        <article class="t-card" data-idx={i} aria-hidden={i >= 3 ? "true" : "false"}>
+          <div class="t-stars" aria-label="5 de 5 estrellas">
+            {Array.from({ length: 5 }).map(() => <span class="t-star" aria-hidden="true">★</span>)}
+          </div>
+          <p class="t-quote">"{t.quote}"</p>
+          <div class="t-author">
+            <div class="t-avatar" aria-hidden="true">{t.initials}</div>
+            <div>
+              <div class="t-name">{t.name}</div>
+              <div class="t-meta">{t.meta}</div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section { background: #F3F7F9; }
+
+  .t-nav { display: flex; gap: 8px; flex-shrink: 0; }
+  .t-nav-btn {
+    width: 44px; height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+    color: var(--color-navy);
+  }
+  .t-nav-btn:hover { background: #F3F7F9; border-color: var(--color-primary); color: var(--color-primary); }
+
+  .t-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .t-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 32px;
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .t-card[aria-hidden="true"] { display: none; }
+  .t-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -8px rgba(27,63,144,.12); }
+
+  .t-stars { display: flex; gap: 2px; }
+  .t-star { color: #2ECC71; font-size: 16px; }
+
+  .t-quote { font-size: 16px; line-height: 1.55; color: var(--color-navy); flex: 1; font-weight: 500; }
+
+  .t-author {
+    display: flex; align-items: center; gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border);
+  }
+  .t-avatar {
+    width: 44px; height: 44px;
+    border-radius: 999px;
+    background: #e7f0fa;
+    display: grid; place-items: center;
+    font-weight: 700; color: var(--color-primary); font-size: 14px;
+    flex-shrink: 0;
+  }
+  .t-name { font-weight: 600; font-size: 14px; color: var(--color-navy); }
+  .t-meta { font-size: 12px; color: var(--color-muted); margin-top: 2px; }
+
+  @media (max-width: 900px) {
+    .t-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const TOTAL = document.querySelectorAll(".t-card").length;
+  let idx = 0;
+
+  function perPage() { return window.innerWidth >= 900 ? 3 : 1; }
+
+  function show(start: number) {
+    const pp = perPage();
+    document.querySelectorAll<HTMLElement>(".t-card").forEach((card, i) => {
+      const visible = i >= start && i < start + pp;
+      card.hidden = !visible;
+      card.setAttribute("aria-hidden", visible ? "false" : "true");
+    });
+  }
+
+  show(0);
+
+  document.getElementById("t-next")?.addEventListener("click", () => {
+    idx = (idx + perPage()) % TOTAL;
+    show(idx);
+  });
+  document.getElementById("t-prev")?.addEventListener("click", () => {
+    idx = (idx - perPage() + TOTAL) % TOTAL;
+    show(idx);
+  });
+</script>

@@ -90,7 +90,8 @@ const items = services.map((s) => ({
     cursor: pointer;
     display: flex; flex-direction: column; gap: 14px;
     text-align: left; min-height: 220px;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease,
+                background .25s ease, color .25s ease;
     font-family: inherit;
   }
   .service-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -8px rgba(27,63,144,.14); border-color: #d4dde6; }
@@ -214,6 +215,12 @@ const items = services.map((s) => ({
 
   const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
   let lastTrigger: HTMLElement | null = null;
+  const allCards = Array.from(document.querySelectorAll<HTMLButtonElement>(".service-card[data-service]"));
+
+  function setActive(card: HTMLElement) {
+    allCards.forEach((c) => c.classList.remove("featured"));
+    card.classList.add("featured");
+  }
 
   function trapFocus(e: KeyboardEvent) {
     const focusable = Array.from(modalEl.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
@@ -235,6 +242,7 @@ const items = services.map((s) => ({
     const d = DATA[id];
     if (!d) return;
     lastTrigger = trigger;
+    setActive(trigger);
     modalIcon.textContent = d.icon;
     modalTitle.textContent = d.title;
     modalLong.textContent = d.long;
@@ -244,7 +252,6 @@ const items = services.map((s) => ({
     ).join("");
     backdrop.hidden = false;
     document.body.style.overflow = "hidden";
-    // Focus the close button after paint
     requestAnimationFrame(() => {
       document.getElementById("modal-close")?.focus();
     });

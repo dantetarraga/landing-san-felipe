@@ -22,6 +22,7 @@ const {
 } = Astro.props;
 
 const siteUrl = "https://clinicasanfelipe.pe";
+const isHome = Astro.url.pathname === "/";
 const fullTitle = title.includes("San Felipe")
   ? title
   : `${title} | Clínica Dental San Felipe`;
@@ -120,7 +121,7 @@ const finalSchema = schema || defaultSchema;
 
   <body>
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    <Navbar />
+    <Navbar transparentTop={isHome} />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>

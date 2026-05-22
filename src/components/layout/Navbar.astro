@@ -1,7 +1,17 @@
 ---
+interface Props {
+  /** When true the header starts transparent (for pages with a dark fullbleed hero). */
+  transparentTop?: boolean;
+}
+const { transparentTop = false } = Astro.props;
 ---
 
-<header id="navbar" class="sf-header" data-scrolled="false">
+<header
+  id="navbar"
+  class="sf-header"
+  data-scrolled="false"
+  data-transparent-top={transparentTop ? "true" : "false"}
+>
   <div class="container">
     <div class="header-inner">
 
@@ -27,7 +37,7 @@
       <!-- Desktop CTAs -->
       <div class="header-cta">
         <a href="tel:+51999999999" class="header-phone" aria-label="Llamar al +51 999 999 999">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
           </svg>
           999 999 999
@@ -38,16 +48,32 @@
       </div>
 
       <!-- Mobile hamburger -->
-      <button id="mobile-menu-btn" class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <button
+        id="mobile-menu-btn"
+        class="hamburger"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
         <span class="ham-line"></span>
         <span class="ham-line"></span>
         <span class="ham-line"></span>
       </button>
     </div>
   </div>
+</header>
 
-  <!-- Mobile menu -->
-  <nav id="mobile-menu" class="mobile-menu" hidden aria-label="Menú móvil">
+<!-- Spacer so page content clears the fixed header -->
+<div class="header-spacer" aria-hidden="true"></div>
+
+<!-- Mobile menu — fixed overlay below the header bar -->
+<nav
+  id="mobile-menu"
+  class="mobile-menu"
+  hidden
+  aria-label="Menú móvil"
+>
+  <div class="mobile-menu-scroll">
     <div class="container mobile-menu-inner">
       <a href="#servicios" class="mob-link">Servicios</a>
       <a href="#resultados" class="mob-link">Resultados</a>
@@ -63,31 +89,36 @@
         <span aria-hidden="true">📞</span> Llamar ahora
       </a>
     </div>
-  </nav>
-</header>
-
-<!-- Spacer for fixed header -->
-<div class="header-spacer"></div>
+  </div>
+</nav>
 
 <style>
+  /* ── Header shell ───────────────────────────────── */
   .sf-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 50;
-    background: transparent;
-    transition: background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease, border-color .25s ease;
+    transition: background .25s ease, box-shadow .25s ease,
+                backdrop-filter .25s ease, border-color .25s ease;
     border-bottom: 1px solid transparent;
-  }
-  .sf-header[data-scrolled="true"] {
-    background: rgba(255,255,255,.92);
+    /* Default: always solid (for inner pages) */
+    background: rgba(255,255,255,.96);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom-color: var(--color-border);
-    box-shadow: 0 1px 0 rgba(11,29,51,.02);
+    box-shadow: 0 1px 0 rgba(11,29,51,.04);
   }
 
+  /* Transparent mode: only when transparentTop=true AND not yet scrolled */
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+
+  /* ── Inner bar height ───────────────────────────── */
   .header-inner {
     display: flex;
     align-items: center;
@@ -98,6 +129,7 @@
   }
   .sf-header[data-scrolled="true"] .header-inner { height: 64px; }
 
+  /* ── Logo ───────────────────────────────────────── */
   .logo {
     display: flex;
     align-items: center;
@@ -108,21 +140,22 @@
     letter-spacing: -0.01em;
     flex-shrink: 0;
     text-decoration: none;
+    transition: color .2s;
   }
-  .sf-header:not([data-scrolled="true"]) .logo { color: white; }
+  /* White logo only in transparent mode before scroll */
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] .logo { color: white; }
 
   .logo-mark {
-    width: 38px;
-    height: 38px;
+    width: 38px; height: 38px;
     border-radius: 12px;
     background: linear-gradient(135deg, var(--color-primary), #5C9BD5);
     color: white;
-    display: grid;
-    place-items: center;
+    display: grid; place-items: center;
     flex-shrink: 0;
     box-shadow: 0 4px 12px -4px rgba(27,63,144,.4);
   }
 
+  /* ── Desktop nav ────────────────────────────────── */
   .desktop-nav {
     display: flex;
     gap: 28px;
@@ -131,15 +164,24 @@
   .desktop-nav a {
     font-size: 14px;
     font-weight: 500;
-    color: var(--color-muted);
+    color: var(--color-ink-2, var(--color-muted));
     position: relative;
     padding: 6px 0;
     text-decoration: none;
     transition: color .2s;
   }
-  .sf-header:not([data-scrolled="true"]) .desktop-nav a { color: rgba(255,255,255,.8); }
+  /* Default (solid header): dark text */
+  .desktop-nav a { color: var(--color-muted); }
   .desktop-nav a:hover { color: var(--color-navy); }
-  .sf-header:not([data-scrolled="true"]) .desktop-nav a:hover { color: white; }
+
+  /* Transparent mode: white text */
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] .desktop-nav a {
+    color: rgba(255,255,255,.85);
+  }
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] .desktop-nav a:hover {
+    color: white;
+  }
+
   .desktop-nav a::after {
     content: '';
     position: absolute;
@@ -153,35 +195,28 @@
   }
   .desktop-nav a:hover::after { transform: scaleX(1); }
 
+  /* ── Header CTAs ────────────────────────────────── */
   .header-cta {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-shrink: 0;
+    display: flex; gap: 10px; align-items: center; flex-shrink: 0;
   }
 
   .header-phone {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600;
     color: var(--color-navy);
-    text-decoration: none;
-    transition: color .2s;
+    text-decoration: none; transition: color .2s;
   }
-  .sf-header:not([data-scrolled="true"]) .header-phone { color: rgba(255,255,255,.85); }
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] .header-phone {
+    color: rgba(255,255,255,.85);
+  }
 
   .btn-header-accent {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 10px 18px;
     background: #2ECC71;
     color: white;
     border-radius: 14px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 14px; font-weight: 600;
     text-decoration: none;
     transition: background .2s ease, box-shadow .2s ease;
     box-shadow: 0 4px 14px -6px rgba(46,204,113,.6);
@@ -189,6 +224,7 @@
   }
   .btn-header-accent:hover { background: #25a85a; }
 
+  /* ── Hamburger ──────────────────────────────────── */
   .hamburger {
     display: none;
     flex-direction: column;
@@ -197,84 +233,107 @@
     border-radius: 10px;
     cursor: pointer;
     transition: background .15s;
-    background: none;
-    border: none;
+    background: none; border: none;
   }
   .hamburger:hover { background: rgba(27,63,144,.08); }
-  .sf-header:not([data-scrolled="true"]) .hamburger:hover { background: rgba(255,255,255,.1); }
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] .hamburger:hover {
+    background: rgba(255,255,255,.12);
+  }
+
   .ham-line {
-    width: 22px;
-    height: 2px;
+    width: 22px; height: 2px;
     border-radius: 2px;
     background: var(--color-navy);
-    transition: background .2s;
+    transition: background .2s, transform .2s;
     display: block;
   }
-  .sf-header:not([data-scrolled="true"]) .ham-line { background: white; }
+  .sf-header[data-transparent-top="true"][data-scrolled="false"] .ham-line { background: white; }
 
-  /* Mobile menu */
+  /* Animated X when menu is open */
+  .hamburger[aria-expanded="true"] .ham-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger[aria-expanded="true"] .ham-line:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger[aria-expanded="true"] .ham-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ── Spacer ─────────────────────────────────────── */
+  .header-spacer { height: 76px; }
+
+  /* ── Mobile menu (fullscreen fixed overlay) ─────── */
   .mobile-menu {
+    position: fixed;
+    top: 76px;   /* sits right below the header bar */
+    left: 0; right: 0; bottom: 0;
     background: white;
+    z-index: 49; /* below header (z-index: 50) */
+    overflow: hidden;
     border-top: 1px solid var(--color-border);
-    max-height: calc(100vh - 64px);
-    overflow-y: auto;
   }
   .mobile-menu[hidden] { display: none; }
 
+  .mobile-menu-scroll {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .mobile-menu-inner {
-    padding: 16px 0 24px;
+    padding: 20px 0 40px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
+    min-height: 100%;
   }
 
   .mob-link {
     display: block;
-    padding: 12px 0;
-    font-size: 15px;
+    padding: 14px 0;
+    font-size: 17px;
     font-weight: 500;
     color: var(--color-navy);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: color .15s;
+    border-bottom: 1px solid var(--color-border);
+    transition: color .15s, padding-left .15s;
   }
-  .mob-link:hover { color: var(--color-primary); }
+  .mob-link:hover { color: var(--color-primary); padding-left: 6px; }
 
   .mob-divider {
-    height: 1px;
-    background: var(--color-border);
-    margin: 12px 0;
+    height: 1px; background: var(--color-border);
+    margin: 16px 0;
   }
 
   .mob-cta-accent, .mob-cta-primary, .mob-cta-ghost {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 16px;
     border-radius: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    text-align: center;
-    margin-bottom: 8px;
+    font-size: 16px; font-weight: 600;
+    text-decoration: none; text-align: center;
+    margin-bottom: 10px;
     transition: background .15s;
   }
   .mob-cta-accent { background: #e0f8ea; color: #16a34a; }
-  .mob-cta-accent:hover { background: #d1fae5; }
+  .mob-cta-accent:hover { background: #c7f3d8; }
   .mob-cta-primary { background: var(--color-primary); color: white; }
   .mob-cta-primary:hover { background: var(--color-primary-dark); }
-  .mob-cta-ghost { background: #F3F7F9; color: var(--color-navy); }
-  .mob-cta-ghost:hover { background: var(--color-border); }
+  .mob-cta-ghost { background: #F3F7F9; color: var(--color-navy); border: 1px solid var(--color-border); }
+  .mob-cta-ghost:hover { background: #e8eff5; }
 
-  .header-spacer {
-    height: 76px;
-  }
-
+  /* ── Responsive breakpoints ─────────────────────── */
   @media (max-width: 900px) {
     .desktop-nav { display: none; }
     .header-phone { display: none; }
     .hamburger { display: flex; }
     .btn-header-accent { display: none; }
+  }
+
+  /* When mobile menu is open, header height may be 64px (scrolled) */
+  /* Adjust top of overlay accordingly */
+  @media (max-width: 900px) {
+    .mobile-menu { top: 76px; }
   }
 </style>
 
@@ -283,33 +342,50 @@
   const btn = document.getElementById("mobile-menu-btn")!;
   const menu = document.getElementById("mobile-menu")!;
 
-  // Scroll detection
+  // ── Scroll detection ─────────────────────────────
   function onScroll() {
-    header.dataset.scrolled = window.scrollY > 24 ? "true" : "false";
+    const scrolled = window.scrollY > 24;
+    header.dataset.scrolled = scrolled ? "true" : "false";
+    // Keep mobile menu top in sync with header height
+    menu.style.top = scrolled ? "64px" : "76px";
   }
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Mobile menu toggle
+  // ── Mobile menu toggle ────────────────────────────
+  function openMenu() {
+    menu.hidden = false;
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", "Cerrar menú");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    menu.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Abrir menú");
+    document.body.style.overflow = "";
+  }
+
   btn.addEventListener("click", () => {
-    const open = !menu.hidden;
-    menu.hidden = open;
-    btn.setAttribute("aria-expanded", String(!open));
+    menu.hidden ? openMenu() : closeMenu();
   });
 
   // Close on link click
   menu.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      menu.hidden = true;
-      btn.setAttribute("aria-expanded", "false");
-    });
+    a.addEventListener("click", closeMenu);
   });
 
   // Close on resize to desktop
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) {
-      menu.hidden = true;
-      btn.setAttribute("aria-expanded", "false");
+    if (window.innerWidth > 900) closeMenu();
+  });
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !menu.hidden) {
+      closeMenu();
+      btn.focus();
     }
   });
 </script>

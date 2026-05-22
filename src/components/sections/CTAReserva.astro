@@ -36,7 +36,7 @@
         <h3>Reserva en 30 segundos</h3>
         <p class="booking-form-sub">Te contactamos para confirmar la cita.</p>
 
-        <div id="booking-success" class="booking-success" hidden>
+        <div id="booking-success" class="booking-success" hidden role="alert" aria-live="polite">
           <span class="bs-icon">✓</span>
           <div>
             <div style="font-weight:700;margin-bottom:2px;">¡Recibimos tu solicitud!</div>
@@ -224,14 +224,16 @@
     transition: border-color .15s ease, box-shadow .15s ease;
     outline: none;
   }
-  .bfield input:focus,
-  .bfield select:focus {
+  .bfield input:focus-visible,
+  .bfield select:focus-visible {
+    outline: none;
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(27,63,144,.12);
   }
-  .bfield input.error,
-  .bfield select.error {
+  .bfield input[aria-invalid="true"],
+  .bfield select[aria-invalid="true"] {
     border-color: #c2410c;
+    box-shadow: 0 0 0 3px rgba(194,65,12,.1);
   }
 
   .btn-submit {
@@ -279,15 +281,17 @@
   form?.addEventListener("submit", (e) => {
     e.preventDefault();
     let valid = true;
+    let firstInvalid: HTMLElement | null = null;
     inputs?.forEach((el) => {
       if (!el.value.trim()) {
-        el.classList.add("error");
+        el.setAttribute("aria-invalid", "true");
+        if (!firstInvalid) firstInvalid = el;
         valid = false;
       } else {
-        el.classList.remove("error");
+        el.setAttribute("aria-invalid", "false");
       }
     });
-    if (!valid) return;
+    if (!valid) { firstInvalid?.focus(); return; }
 
     const name = (form.elements.namedItem("name") as HTMLInputElement).value;
     const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
@@ -302,6 +306,6 @@
   });
 
   inputs?.forEach((el) => {
-    el.addEventListener("input", () => el.classList.remove("error"));
+    el.addEventListener("input", () => el.setAttribute("aria-invalid", "false"));
   });
 </script>

@@ -6,8 +6,8 @@
     <div class="header-inner">
 
       <!-- Logo -->
-      <a href="/" class="logo">
-        <span class="logo-mark">
+      <a href="/" class="logo" aria-label="Clínica Dental San Felipe — Inicio">
+        <span class="logo-mark" aria-hidden="true">
           <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
           </svg>
@@ -47,19 +47,23 @@
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="mobile-menu" hidden aria-label="Menú móvil">
+  <nav id="mobile-menu" class="mobile-menu" hidden aria-label="Menú móvil">
     <div class="container mobile-menu-inner">
       <a href="#servicios" class="mob-link">Servicios</a>
       <a href="#resultados" class="mob-link">Resultados</a>
       <a href="#equipo" class="mob-link">Equipo</a>
       <a href="#ubicacion" class="mob-link">Ubicación</a>
       <a href="#contacto" class="mob-link">Contacto</a>
-      <div class="mob-divider"></div>
-      <a href="#reservar" class="mob-cta-accent">🦷 Chequeo y diagnóstico gratis</a>
+      <div class="mob-divider" aria-hidden="true"></div>
+      <a href="#reservar" class="mob-cta-accent">
+        <span aria-hidden="true">🦷</span> Chequeo y diagnóstico gratis
+      </a>
       <a href="#reservar" class="mob-cta-primary">Reservar cita</a>
-      <a href="tel:+51999999999" class="mob-cta-ghost">📞 Llamar ahora</a>
+      <a href="tel:+51999999999" class="mob-cta-ghost">
+        <span aria-hidden="true">📞</span> Llamar ahora
+      </a>
     </div>
-  </div>
+  </nav>
 </header>
 
 <!-- Spacer for fixed header -->
